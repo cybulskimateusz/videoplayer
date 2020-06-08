@@ -1,0 +1,63 @@
+{
+  "name": "videoplayer",
+  "version": "1.0.0",
+  "description": "React videoplayer with ThreeJS 360 videos",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --c webpack.config.js --hot --open --mode development",
+    "build": "webpack --c webpack.config.js --mode production",
+    "lint": "eslint --ext .js --ext .jsx --c .eslintrc.json ./ ",
+    "lint:fix": "eslint --ext .js --ext .jsx --c .eslintrc.json ./ --fix",
+    "lint-style": "npx stylelint \"**/*.scss\"",
+    "lint-style:fix": "npx stylelint \"**/*.scss\" --fix",
+    "test": "jest --c jest.config.json",
+    "test:watch": "npm run test -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cybulskimateusz/videoplayer.git"
+  },
+  "author": "cybulskimateusz@icloud.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cybulskimateusz/videoplayer/issues"
+  },
+  "homepage": "https://github.com/cybulskimateusz/videoplayer#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-react": "^7.10.1",
+    "@testing-library/dom": "^7.10.1",
+    "@types/jest": "^25.2.3",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.5.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.21.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.0.1",
+    "jest-cli": "^26.0.1",
+    "jest-dom": "^4.0.0",
+    "node-sass": "^4.14.1",
+    "react-test-renderer": "^16.13.1",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.17.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.10.2",
+    "lodash": "^4.17.15",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
