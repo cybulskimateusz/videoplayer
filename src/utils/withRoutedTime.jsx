@@ -1,9 +1,12 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import uuid from 'react-uuid';
 import _ from 'lodash';
 
 const withRoutedTime = (Component) => ({ hotspots, ref }) => {
+  const { key } = useLocation();
+
   const reducedHotspots = hotspots && hotspots.reduce((acc, cur) => {
     const x = acc.find((item) => item.time === cur.time);
     return !x ? acc.concat([cur]) : acc;
@@ -16,7 +19,7 @@ const withRoutedTime = (Component) => ({ hotspots, ref }) => {
       </Route>
       { reducedHotspots && reducedHotspots.map(
         ({ time, title }) => (
-          <Route path={`/${title}-${time}`} key={time}>
+          <Route path={`/${title}-${time}`} key={`${uuid()}-${key}`}>
             <Component time={time} ref={ref} />
           </Route>
         ),

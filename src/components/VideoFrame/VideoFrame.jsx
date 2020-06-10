@@ -1,9 +1,9 @@
-import React, { forwardRef, useRef, useState } from 'react';
+import React, { forwardRef, useRef, useState, memo } from 'react';
 import { number } from 'prop-types';
 
 import video from '@/video.mp4';
 
-const VideoFrame = forwardRef(({ time }, ref) => {
+const VideoFrame = memo(forwardRef(({ time }, ref) => {
   const [muted, setMuted] = useState(true);
   const videoRef = useRef(ref);
 
@@ -19,11 +19,12 @@ const VideoFrame = forwardRef(({ time }, ref) => {
       muted={muted}
       onLoadedMetadata={setCurrentTime}
       onLoadedData={unMute}
+      width="400"
     >
       <source src={video} />
     </video>
   );
-});
+}));
 
 VideoFrame.propTypes = {
   time: number,
