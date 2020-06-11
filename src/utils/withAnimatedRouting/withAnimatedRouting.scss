@@ -1,0 +1,17 @@
+.seek-enter {
+    opacity: 0;
+}
+
+.seek-enter.seek-enter-active {
+    opacity: 1;
+    transition: opacity 200ms linear;
+}
+
+.seek-exit {
+    opacity: 1;
+}
+
+.seek-exit.seek-exit-active {
+    opacity: 0;
+    transition: opacity 200ms 400ms linear;
+}
