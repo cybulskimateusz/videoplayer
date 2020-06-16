@@ -1,0 +1,1 @@
+export const SWITCH_IS_PLAYED = 'SWITCH_IS_PLAYED';

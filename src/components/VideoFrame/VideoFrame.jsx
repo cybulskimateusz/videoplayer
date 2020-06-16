@@ -1,26 +1,34 @@
 import React, {
-  forwardRef, useRef, useState, memo,
+  forwardRef, useRef, useState, memo, useEffect,
 } from 'react';
-import { number } from 'prop-types';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-import video from '@/video.mp4';
+import video from './video.mp4';
 
-const VideoFrame = memo(forwardRef(({ time }, ref) => {
+const VideoFrame = memo(forwardRef(({
+  time,
+}, ref) => {
   const [muted, setMuted] = useState(true);
   const videoRef = useRef(ref);
 
-  const setCurrentTime = () => {
-    videoRef.current.currentTime = time;
-  };
+  const isPlayed = useSelector((state) => state.videoReducer.isPlayed);
+
+  const setCurrentTime = () => { videoRef.current.currentTime = time; };
   const unMute = () => setMuted(false);
+  const togglePlay = () => (isPlayed ? videoRef.current.play() : videoRef.current.pause());
+
+  useEffect(() => {
+    togglePlay();
+  }, [isPlayed]);
 
   return (
     <video
       ref={videoRef}
       preload="auto"
       muted={muted}
-      onLoadedMetadata={setCurrentTime}
       onLoadedData={unMute}
+      onLoadedMetadata={setCurrentTime}
       width="400"
       style={{ position: 'absolute' }}
     >
@@ -30,7 +38,7 @@ const VideoFrame = memo(forwardRef(({ time }, ref) => {
 }));
 
 VideoFrame.propTypes = {
-  time: number,
+  time: PropTypes.number,
 };
 
 VideoFrame.defaultProps = {

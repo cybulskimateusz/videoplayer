@@ -4,7 +4,7 @@
 
 .seek-enter.seek-enter-active {
     opacity: 1;
-    transition: opacity 300ms linear;
+    transition: opacity 600ms linear;
 }
 
 .seek-exit {
@@ -13,5 +13,5 @@
 
 .seek-exit.seek-exit-active {
     opacity: 0.1;
-    transition: opacity 200ms 400ms linear;
+    transition: opacity 500ms 400ms linear;
 }

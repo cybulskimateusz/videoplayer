@@ -1,0 +1,29 @@
+.play_button {
+    background: transparent;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    height: 3em;
+    margin: auto ;
+    padding: 0;
+    width: 3em;
+
+    &--play .play_button__inner {
+        border-bottom: .8em solid transparent;
+        border-left: 1.6em solid rgb(255, 255, 255);
+        border-top: .8em solid transparent;
+        margin: auto 30%;
+    }
+
+    &--pause .play_button__inner {
+        background-color: transparent;
+        border-bottom: none;
+        border-left: .35em solid rgb(255, 255, 255);
+        border-right: .35em solid rgb(255, 255, 255);
+        border-top: none;
+        height: 1.5em;
+        margin: auto;
+        width: .5em;
+    }
+}

@@ -1,10 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { fireEvent, createEvent } from '@testing-library/dom';
+import { render, cleanup } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 
+import { videoState } from '@/reducers/videoReducer';
 import VideoFrame from './VideoFrame';
 
-const container = document.createElement('div');
+const pauseStub = jest
+  .spyOn(window.HTMLMediaElement.prototype, 'pause')
+  .mockImplementation(() => {});
+const playStub = jest
+  .spyOn(window.HTMLMediaElement.prototype, 'play')
+  .mockImplementation(() => {});
+const mockStore = configureStore([]);
+const basicStore = mockStore({ videoReducer: videoState });
 
 describe('<VideoFrame /> ', () => {
   beforeEach(() => {
@@ -13,27 +23,58 @@ describe('<VideoFrame /> ', () => {
     * https://github.com/testing-library/react-testing-library/issues/470#issuecomment-528449119
     */
     jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest.mock('react-redux', () => ({
+      useDispatch: jest.fn(),
+      useSelector: jest.fn(),
+    }));
+  });
+
+  afterEach(() => {
+    cleanup();
+    jest.clearAllMocks();
   });
 
   test('should get time from prop', () => {
-    ReactDOM.render(
-      <VideoFrame time={20} />,
-      container,
+    const { container } = render(
+      <Provider store={basicStore}>
+        <VideoFrame time={20} />
+      </Provider>,
     );
     const video = container.querySelector('video');
     const event = createEvent.loadedMetadata(video, {});
     fireEvent(video, event);
-    expect(video.currentTime).toEqual(20);
+    expect(container.querySelector('video').currentTime).toEqual(20);
   });
 
   test('should unmute when loadeddata', () => {
-    ReactDOM.render(
-      <VideoFrame />,
-      container,
+    const { container } = render(
+      <Provider store={basicStore}>
+        <VideoFrame />
+      </Provider>,
     );
     const video = container.querySelector('video');
     const event = createEvent.loadedData(video, {});
     fireEvent(video, event);
     expect(video.muted).toBeFalsy();
+  });
+
+  test('should pause on isPlayed false', () => {
+    const state = mockStore({ videoReducer: { ...videoState, isPlayed: false } });
+    render(
+      <Provider store={state}>
+        <VideoFrame />
+      </Provider>,
+    );
+    expect(pauseStub).toHaveBeenCalled();
+  });
+
+  test('should play on isPlayed true', () => {
+    const state = mockStore({ videoReducer: { ...videoState, isPlayed: true } });
+    render(
+      <Provider store={state}>
+        <VideoFrame />
+      </Provider>,
+    );
+    expect(playStub).toHaveBeenCalled();
   });
 });

@@ -22,11 +22,11 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)?$/,
-        exclude: [/node_modules/, /\.(test|spec).(js|jsx)?$./],
+        exclude: [/node_modules/, /\.(test|spec).(js|jsx)?$/],
         loader: 'babel-loader',
       },
       {
-        test: /\.(sass|scss)?$/,
+        test: /\.scss$/,
         exclude: [/node_modules/],
         use: [
           'style-loader',
@@ -35,7 +35,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.mp4?$/,
+        test: /\.mp4$/,
         exclude: [/node_modules/],
         loader: 'file-loader',
       },
