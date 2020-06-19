@@ -31,7 +31,7 @@ const withRoutedTime = (Component) => ({ hotspots, ref }) => {
           { reducedHotspots && reducedHotspots.map(
             ({ time, title }) => (
               <Route path={`/${title}-${time}`} key={`${uuid()}-${location.key}`}>
-                <Component time={time} ref={ref} />
+                <Component startTime={time} ref={ref} />
               </Route>
             ),
           )}

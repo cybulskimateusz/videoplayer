@@ -6,8 +6,8 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import videoReducer, { videoState } from '@/reducers/videoReducer';
-import VideoFrame from './components/VideoFrame/VideoFrame';
-import withAnimatedRouting from './utils/withAnimatedRouting/withAnimatedRouting';
+import VideoFrame from '@/components/VideoFrame';
+import withAnimatedRouting from '@/utils/withAnimatedRouting/withAnimatedRouting';
 
 const hotspots = [{ time: 5, title: 'example1' }, { time: 7, title: 'example2' }];
 const RoutedVideo = withAnimatedRouting(VideoFrame);

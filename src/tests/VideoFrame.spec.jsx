@@ -5,7 +5,8 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 import { videoState } from '@/reducers/videoReducer';
-import VideoFrame from './VideoFrame';
+import { setDuration } from '@/actions/videoActions';
+import VideoFrame from '@/components/VideoFrame';
 
 const pauseStub = jest
   .spyOn(window.HTMLMediaElement.prototype, 'pause')
@@ -23,10 +24,8 @@ describe('<VideoFrame /> ', () => {
     * https://github.com/testing-library/react-testing-library/issues/470#issuecomment-528449119
     */
     jest.spyOn(console, 'error').mockImplementation(() => {});
-    jest.mock('react-redux', () => ({
-      useDispatch: jest.fn(),
-      useSelector: jest.fn(),
-    }));
+    jest.mock('react-redux', () => ({ useSelector: jest.fn() }));
+    basicStore.dispatch = jest.fn();
   });
 
   afterEach(() => {
@@ -34,10 +33,10 @@ describe('<VideoFrame /> ', () => {
     jest.clearAllMocks();
   });
 
-  test('should get time from prop', () => {
+  test('should get startTime from prop', () => {
     const { container } = render(
       <Provider store={basicStore}>
-        <VideoFrame time={20} />
+        <VideoFrame startTime={20} />
       </Provider>,
     );
     const video = container.querySelector('video');

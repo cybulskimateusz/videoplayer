@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { switchIsPlayed } from '@/actions/videoActions';
 
-import './PlayButton.scss';
+import '@/style/PlayButton.scss';
 
 const PlayButton = memo(() => {
   const [classValue, setClassValue] = useState('play_button');

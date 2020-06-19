@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 
 import { videoState } from '@/reducers/videoReducer';
 import { switchIsPlayed } from '@/actions/videoActions';
-import PlayButton from './PlayButton';
+import PlayButton from '@/components/PlayButton';
 
 const mockStore = configureStore([]);
 const basicStore = mockStore({ videoReducer: videoState });
