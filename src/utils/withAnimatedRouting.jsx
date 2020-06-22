@@ -7,7 +7,7 @@ import uuid from 'react-uuid';
 import _ from 'lodash';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import './withAnimatedRouting.scss';
+import '@/style/withAnimatedRouting.scss';
 
 const withRoutedTime = (Component) => ({ hotspots, ref }) => {
   const location = useLocation();

@@ -1,1 +1,6 @@
+export const SET_IS_PLAYED = 'SET_IS_PLAYED';
 export const SWITCH_IS_PLAYED = 'SWITCH_IS_PLAYED';
+export const SET_CURRENT_TIME = 'SET_CURRENT_TIME';
+export const SET_SEEKED_TIME = 'SET_SEEKED_TIME';
+export const SET_IS_SEEKED = 'SET_IS_SEEKED';
+export const SET_DURATION = 'SET_DURATION';

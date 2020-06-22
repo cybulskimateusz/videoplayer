@@ -14,16 +14,28 @@ const VideoFrame = memo(forwardRef(({
   const videoRef = useRef(ref);
 
   const dispatch = useDispatch();
+  const dispatchDuration = (e) => dispatch(actions.setDuration(e.target.duration));
+  const dispatchCurrentTime = (time) => dispatch(actions.setCurrentTime(time));
   const falseIsPlayed = () => dispatch(actions.setIsPlayed(false));
+  const falseIsSeeked = () => dispatch(actions.setIsSeeked(false));
 
-  const isPlayed = useSelector((state) => state.videoReducer.isPlayed);
+  const isPlayed = useSelector(({ videoReducer }) => videoReducer.isPlayed);
+  const seekedTime = useSelector(({ videoReducer }) => videoReducer.seekedTime);
+  const isSeeked = useSelector(({ videoReducer }) => videoReducer.isSeeked);
 
+  const handleTimeUpdate = (e) => {
+    const { currentTime } = e.target;
+    dispatchCurrentTime(currentTime);
+    falseIsSeeked();
+  };
   const setTime = (time) => { videoRef.current.currentTime = time; };
   const setStartTime = () => setTime(startTime);
+  const setSeekedTime = () => setTime(seekedTime);
   const unMute = () => setMuted(false);
   const togglePlay = () => (isPlayed ? videoRef.current.play() : videoRef.current.pause());
 
   useEffect(() => { togglePlay(); }, [isPlayed]);
+  useEffect(() => { if (isSeeked) setSeekedTime(); }, [seekedTime, isSeeked]);
 
   return (
     <video
@@ -32,6 +44,8 @@ const VideoFrame = memo(forwardRef(({
       muted={muted}
       onLoadedData={unMute}
       onLoadedMetadata={setStartTime}
+      onDurationChange={dispatchDuration}
+      onTimeUpdate={handleTimeUpdate}
       onEnded={falseIsPlayed}
       width="400"
       style={{ position: 'absolute' }}

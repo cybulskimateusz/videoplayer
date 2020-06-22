@@ -1,7 +1,0 @@
-{
-    "testRegex": "((\\.|/*.)(spec))\\.(js|jsx)?$",
-    "moduleNameMapper": {
-      "@/(.*)$": "<rootDir>/src/$1",
-      "\\.(css|less|scss|sass|mp4)$": "jest-transform-stub"
-    }
-}

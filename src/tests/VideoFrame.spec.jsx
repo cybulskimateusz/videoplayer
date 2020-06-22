@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 import { videoState } from '@/reducers/videoReducer';
-import { setDuration } from '@/actions/videoActions';
+import { setDuration, setCurrentTime, setIsSeeked } from '@/actions/videoActions';
 import VideoFrame from '@/components/VideoFrame';
 
 const pauseStub = jest
@@ -75,5 +75,61 @@ describe('<VideoFrame /> ', () => {
       </Provider>,
     );
     expect(playStub).toHaveBeenCalled();
+  });
+
+  test('should get seekedTime from store if isSeeked true', () => {
+    const state = mockStore({ videoReducer: { ...videoState, seekedTime: 20, isSeeked: true } });
+    const { container } = render(
+      <Provider store={state}>
+        <VideoFrame />
+      </Provider>,
+    );
+    expect(container.querySelector('video').currentTime).toEqual(20);
+  });
+
+  test('should not get seekedTime from store if isSeeked false', () => {
+    const state = mockStore({ videoReducer: { ...videoState, seekedTime: 20, isSeeked: false } });
+    const { container } = render(
+      <Provider store={state}>
+        <VideoFrame />
+      </Provider>,
+    );
+    expect(container.querySelector('video').currentTime).toEqual(0);
+  });
+
+  test('should dispatch duration from video', () => {
+    const { container } = render(
+      <Provider store={basicStore}>
+        <VideoFrame />
+      </Provider>,
+    );
+    const video = container.querySelector('video');
+    const event = createEvent.durationChange(video, {});
+    fireEvent(video, event);
+    expect(basicStore.dispatch).toHaveBeenCalledWith(setDuration(NaN));
+  });
+
+  test('should dispatch currentTime on timeupdate', () => {
+    const { container } = render(
+      <Provider store={basicStore}>
+        <VideoFrame />
+      </Provider>,
+    );
+    const video = container.querySelector('video');
+    const event = createEvent.timeUpdate(video, { target: { currentTime: 20 } });
+    fireEvent(video, event);
+    expect(basicStore.dispatch).toHaveBeenCalledWith(setCurrentTime(20));
+  });
+
+  test('should dispatch isSeeked = false on timeupdate', () => {
+    const { container } = render(
+      <Provider store={basicStore}>
+        <VideoFrame />
+      </Provider>,
+    );
+    const video = container.querySelector('video');
+    const event = createEvent.timeUpdate(video, {});
+    fireEvent(video, event);
+    expect(basicStore.dispatch).toHaveBeenCalledWith(setIsSeeked(false));
   });
 });

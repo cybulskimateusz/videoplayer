@@ -1,0 +1,53 @@
+$this: '.progress_bar';
+$this-active: '.progress_bar:active';
+
+@mixin thumb-visuals {
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    display: block;
+    height: 1.2em;
+    width: 1.2em;
+}
+
+@mixin cross-browser-thumb {
+    @include thumb-visuals;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    left: -50%;
+    opacity: 1;
+}
+
+#{$this} {
+    background: rgba($color: #fff, $alpha: 0.3);
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 3px;
+    margin: auto;
+    position: relative;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    width: 100%;
+
+    &:focus {
+        outline: none;
+    }
+
+    &__current_progress {
+        background: #fff;
+        height: 100%;
+        pointer-events: none;
+        position: absolute;
+
+        &:after {
+            @include thumb-visuals;
+            content:'';
+            float: right;
+            margin: -.5em -.9em 0 0;
+            position: relative;
+        }
+    }
+}
