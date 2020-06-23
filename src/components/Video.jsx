@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 
 import * as actions from '@/actions/videoActions';
+import '@/style/Video.scss';
 import video from '@/video.mp4';
 
-const VideoFrame = memo(forwardRef(({
+const Video = memo(forwardRef(({
   startTime,
 }, ref) => {
   const [muted, setMuted] = useState(true);
@@ -47,20 +48,19 @@ const VideoFrame = memo(forwardRef(({
       onDurationChange={dispatchDuration}
       onTimeUpdate={handleTimeUpdate}
       onEnded={falseIsPlayed}
-      width="400"
-      style={{ position: 'absolute' }}
+      className="video"
     >
       <source src={video} />
     </video>
   );
 }));
 
-VideoFrame.propTypes = {
+Video.propTypes = {
   startTime: PropTypes.number,
 };
 
-VideoFrame.defaultProps = {
+Video.defaultProps = {
   startTime: 0,
 };
 
-export default VideoFrame;
+export default Video;

@@ -7,7 +7,7 @@
     height: 3em;
     margin: auto ;
     padding: 0;
-    position: absolute;
+    position: relative;
     width: 3em;
 
     &--play .play_button__inner {
@@ -26,5 +26,11 @@
         height: 1.5em;
         margin: auto;
         width: .5em;
+    }
+
+    &:focus {
+        outline: none;
+        transform: scale(1.2);
+        transition: transform .2s;
     }
 }

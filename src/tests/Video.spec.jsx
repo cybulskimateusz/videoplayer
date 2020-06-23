@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 
 import { videoState } from '@/reducers/videoReducer';
 import { setDuration, setCurrentTime, setIsSeeked } from '@/actions/videoActions';
-import VideoFrame from '@/components/VideoFrame';
+import Video from '@/components/Video';
 
 const pauseStub = jest
   .spyOn(window.HTMLMediaElement.prototype, 'pause')
@@ -17,7 +17,7 @@ const playStub = jest
 const mockStore = configureStore([]);
 const basicStore = mockStore({ videoReducer: videoState });
 
-describe('<VideoFrame /> ', () => {
+describe('<Video /> ', () => {
   beforeEach(() => {
     /*
     * issue with react library throws unexpected console error
@@ -36,7 +36,7 @@ describe('<VideoFrame /> ', () => {
   test('should get startTime from prop', () => {
     const { container } = render(
       <Provider store={basicStore}>
-        <VideoFrame startTime={20} />
+        <Video startTime={20} />
       </Provider>,
     );
     const video = container.querySelector('video');
@@ -48,7 +48,7 @@ describe('<VideoFrame /> ', () => {
   test('should unmute when loadeddata', () => {
     const { container } = render(
       <Provider store={basicStore}>
-        <VideoFrame />
+        <Video />
       </Provider>,
     );
     const video = container.querySelector('video');
@@ -61,7 +61,7 @@ describe('<VideoFrame /> ', () => {
     const state = mockStore({ videoReducer: { ...videoState, isPlayed: false } });
     render(
       <Provider store={state}>
-        <VideoFrame />
+        <Video />
       </Provider>,
     );
     expect(pauseStub).toHaveBeenCalled();
@@ -71,7 +71,7 @@ describe('<VideoFrame /> ', () => {
     const state = mockStore({ videoReducer: { ...videoState, isPlayed: true } });
     render(
       <Provider store={state}>
-        <VideoFrame />
+        <Video />
       </Provider>,
     );
     expect(playStub).toHaveBeenCalled();
@@ -81,7 +81,7 @@ describe('<VideoFrame /> ', () => {
     const state = mockStore({ videoReducer: { ...videoState, seekedTime: 20, isSeeked: true } });
     const { container } = render(
       <Provider store={state}>
-        <VideoFrame />
+        <Video />
       </Provider>,
     );
     expect(container.querySelector('video').currentTime).toEqual(20);
@@ -91,7 +91,7 @@ describe('<VideoFrame /> ', () => {
     const state = mockStore({ videoReducer: { ...videoState, seekedTime: 20, isSeeked: false } });
     const { container } = render(
       <Provider store={state}>
-        <VideoFrame />
+        <Video />
       </Provider>,
     );
     expect(container.querySelector('video').currentTime).toEqual(0);
@@ -100,7 +100,7 @@ describe('<VideoFrame /> ', () => {
   test('should dispatch duration from video', () => {
     const { container } = render(
       <Provider store={basicStore}>
-        <VideoFrame />
+        <Video />
       </Provider>,
     );
     const video = container.querySelector('video');
@@ -112,7 +112,7 @@ describe('<VideoFrame /> ', () => {
   test('should dispatch currentTime on timeupdate', () => {
     const { container } = render(
       <Provider store={basicStore}>
-        <VideoFrame />
+        <Video />
       </Provider>,
     );
     const video = container.querySelector('video');
@@ -124,7 +124,7 @@ describe('<VideoFrame /> ', () => {
   test('should dispatch isSeeked = false on timeupdate', () => {
     const { container } = render(
       <Provider store={basicStore}>
-        <VideoFrame />
+        <Video />
       </Provider>,
     );
     const video = container.querySelector('video');

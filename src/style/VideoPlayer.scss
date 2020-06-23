@@ -1,0 +1,43 @@
+.video_player{
+    overflow: hidden;
+    position: relative;
+    width:100%;
+
+    * {
+        font-size: 14px;
+
+        @media all and (max-width: 500px) {
+            font-size: 5px;
+        }
+        
+        @media all and (min-width: 500px) and (max-width: 768px) {
+            font-size: 10px;
+        }
+
+        @media all and (min-width: 1440px) {
+            font-size: 20px;
+        }
+
+        @media all and (min-width: 2560px) {
+            font-size: 36px;
+        }
+    }
+
+    .control_bar__outer {
+        bottom: 0;
+        height: 100%;
+        position: absolute;
+        transform: translateY(15%);
+        transition: transform .3s;
+        width: 100%;
+    }
+
+    &:hover .control_bar__outer {
+        transform: none;
+        transition: transform .3s;
+    }
+
+    &:active .control_bar__outer {
+        transform: none;
+    }
+}

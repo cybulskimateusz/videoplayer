@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import {
   Route, useLocation, Switch,
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import uuid from 'react-uuid';
 import _ from 'lodash';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { useSelector } from 'react-redux';
 
 import '@/style/withAnimatedRouting.scss';
 
-const withRoutedTime = (Component) => ({ hotspots, ref }) => {
+
+const withRoutedTime = (Component) => forwardRef((__props, ref) => {
   const location = useLocation();
+  const hotspots = useSelector(({ hotspotsReducer }) => hotspotsReducer);
 
   const reducedHotspots = hotspots && hotspots.reduce((acc, cur) => {
     const x = acc.find((item) => item.time === cur.time);
@@ -21,7 +23,7 @@ const withRoutedTime = (Component) => ({ hotspots, ref }) => {
     <TransitionGroup>
       <CSSTransition
         classNames="seek"
-        timeout={600}
+        timeout={1000}
         key={location.key}
       >
         <Switch location={location}>
@@ -39,11 +41,7 @@ const withRoutedTime = (Component) => ({ hotspots, ref }) => {
       </CSSTransition>
     </TransitionGroup>
   );
-};
+});
 
-withRoutedTime.propTypes = {
-  hotspots: PropTypes.arrayOf(PropTypes.object),
-  ref: PropTypes.ref,
-};
 
 export default _.curry(withRoutedTime);

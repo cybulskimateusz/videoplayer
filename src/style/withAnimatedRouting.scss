@@ -1,17 +1,21 @@
 .seek-enter {
-    opacity: 0.1;
-}
-
-.seek-enter.seek-enter-active {
+    opacity: 0;
+    z-index: 1;
+  }
+  .seek-enter-active {
     opacity: 1;
-    transition: opacity 600ms linear;
-}
-
-.seek-exit {
-    opacity: 1;
-}
-
-.seek-exit.seek-exit-active {
-    opacity: 0.1;
-    transition: opacity 500ms 400ms linear;
-}
+    transition: opacity .5s .5s;
+    z-index: 1;
+  }
+  .seek-exit {
+    margin-top: -50%;
+    z-index: -1;
+  }
+  .seek-exit-active {
+    margin-top: -50%;
+    z-index: -1;
+  }
+  .seek-exit-done {
+    margin-top: -50%;
+    z-index: -1;
+  }
