@@ -38,10 +38,11 @@ const ProgressBar = memo(({ coordinates, isDetecting }) => {
   }, [currentTime]);
 
   useEffect(() => {
-    if (isDetecting) {
-      setSeekedProgress();
+    if (isDetecting) setSeekedProgress();
+    else if (!isDetecting && coordinates) {
+      dispatchIsSeekedTrue();
       dispatchSeekTime();
-    } else dispatchIsSeekedTrue();
+    }
   }, [coordinates]);
 
   return (
@@ -59,7 +60,7 @@ ProgressBar.propTypes = {
 };
 
 ProgressBar.defaultProps = {
-  coordinates: { percent: { x: 0 } },
+  coordinates: null,
 };
 
 export default ProgressBar;

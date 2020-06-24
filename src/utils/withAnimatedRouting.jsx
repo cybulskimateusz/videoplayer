@@ -12,7 +12,7 @@ import '@/style/withAnimatedRouting.scss';
 
 const withRoutedTime = (Component) => forwardRef((__props, ref) => {
   const location = useLocation();
-  const hotspots = useSelector(({ hotspotsReducer }) => hotspotsReducer);
+  const hotspots = useSelector(({ envReducer }) => envReducer.hotspots);
 
   const reducedHotspots = hotspots && hotspots.reduce((acc, cur) => {
     const x = acc.find((item) => item.time === cur.time);

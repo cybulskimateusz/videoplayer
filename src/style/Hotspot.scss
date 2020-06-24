@@ -1,0 +1,12 @@
+.hotspot {
+    position: relative;
+    width: fit-content;
+
+    &__thumbnail {
+        visibility: hidden;
+    }
+
+    &:hover &__thumbnail {
+        visibility: visible;
+    }
+}

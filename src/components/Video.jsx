@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import * as actions from '@/actions/videoActions';
 import '@/style/Video.scss';
-import video from '@/video.mp4';
 
 const Video = memo(forwardRef(({
   startTime,
@@ -20,6 +19,7 @@ const Video = memo(forwardRef(({
   const falseIsPlayed = () => dispatch(actions.setIsPlayed(false));
   const falseIsSeeked = () => dispatch(actions.setIsSeeked(false));
 
+  const src = useSelector(({ envReducer }) => envReducer.src);
   const isPlayed = useSelector(({ videoReducer }) => videoReducer.isPlayed);
   const seekedTime = useSelector(({ videoReducer }) => videoReducer.seekedTime);
   const isSeeked = useSelector(({ videoReducer }) => videoReducer.isSeeked);
@@ -50,7 +50,7 @@ const Video = memo(forwardRef(({
       onEnded={falseIsPlayed}
       className="video"
     >
-      <source src={video} />
+      <source src={src} />
     </video>
   );
 }));
