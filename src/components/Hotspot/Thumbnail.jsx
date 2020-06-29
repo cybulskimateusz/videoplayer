@@ -19,13 +19,12 @@ const Thumbnail = ({
 Thumbnail.propTypes = {
   time: PropTypes.number.isRequired,
   image: PropTypes.string,
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   description: PropTypes.string,
 };
 
 Thumbnail.defaultProps = {
   image: null,
-  title: null,
   description: null,
 };
 

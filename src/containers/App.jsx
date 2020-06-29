@@ -7,14 +7,16 @@ import PropTypes from 'prop-types';
 
 import videoReducer, { videoState } from '@/reducers/videoReducer';
 import envReducer from '@/reducers/envReducer';
+import sphericalReducer, { sphericalState } from '@/reducers/sphericalReducer';
 import VideoPlayer from '@/containers/VideoPlayer';
 import '@/style/index.scss';
 
-const App = ({ hotspots, video }) => {
+const App = ({ hotspots, video, spherical }) => {
   const environment = { hotspots, src: video };
+  const sphericalData = { ...sphericalState, spherical };
   const store = createStore(
-    combineReducers({ videoReducer, envReducer }),
-    { videoReducer: { ...videoState }, envReducer: environment },
+    combineReducers({ videoReducer, envReducer, sphericalReducer }),
+    { videoReducer: { ...videoState }, envReducer: environment, sphericalReducer: sphericalData },
     composeWithDevTools(),
   );
   return (
@@ -31,8 +33,10 @@ App.propTypes = {
     PropTypes.shape({ time: PropTypes.number, title: PropTypes.string }),
   ),
   video: PropTypes.string.isRequired,
+  spherical: PropTypes.bool,
 };
 App.defaultProps = {
   hotspots: [{}],
+  spherical: false,
 };
 export default App;

@@ -6,6 +6,6 @@ import video from './video.mp4';
 
 const hotspots = [{ time: 5, title: 'example1' }, { time: 7, title: 'example2' }];
 ReactDOM.render(
-  <App hotspots={hotspots} video={video} />,
+  <App hotspots={hotspots} video={video} spherical />,
   document.querySelector('#root'),
 );

@@ -3,6 +3,13 @@
     position: relative;
     width:100%;
 
+    &--spherical {
+        .video {
+            position: absolute;
+            visibility: hidden;
+        }
+    }
+
     * {
         font-size: 14px;
 

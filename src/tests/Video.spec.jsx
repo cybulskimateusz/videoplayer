@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 import { videoState } from '@/reducers/videoReducer';
+import { envState } from '@/reducers/envReducer';
 import { setDuration, setCurrentTime, setIsSeeked } from '@/actions/videoActions';
 import Video from '@/components/Video';
 
@@ -15,7 +16,7 @@ const playStub = jest
   .spyOn(window.HTMLMediaElement.prototype, 'play')
   .mockImplementation(() => {});
 const mockStore = configureStore([]);
-const basicStore = mockStore({ videoReducer: videoState });
+const basicStore = mockStore({ videoReducer: videoState, envReducer: envState });
 
 describe('<Video /> ', () => {
   beforeEach(() => {
@@ -45,20 +46,11 @@ describe('<Video /> ', () => {
     expect(container.querySelector('video').currentTime).toEqual(20);
   });
 
-  test('should unmute when loadeddata', () => {
-    const { container } = render(
-      <Provider store={basicStore}>
-        <Video />
-      </Provider>,
-    );
-    const video = container.querySelector('video');
-    const event = createEvent.loadedData(video, {});
-    fireEvent(video, event);
-    expect(video.muted).toBeFalsy();
-  });
-
   test('should pause on isPlayed false', () => {
-    const state = mockStore({ videoReducer: { ...videoState, isPlayed: false } });
+    const state = mockStore({
+      videoReducer: { ...videoState, isPlayed: false },
+      envReducer: envState,
+    });
     render(
       <Provider store={state}>
         <Video />
@@ -68,7 +60,10 @@ describe('<Video /> ', () => {
   });
 
   test('should play on isPlayed true', () => {
-    const state = mockStore({ videoReducer: { ...videoState, isPlayed: true } });
+    const state = mockStore({
+      videoReducer: { ...videoState, isPlayed: true },
+      envReducer: envState,
+    });
     render(
       <Provider store={state}>
         <Video />
@@ -78,7 +73,10 @@ describe('<Video /> ', () => {
   });
 
   test('should get seekedTime from store if isSeeked true', () => {
-    const state = mockStore({ videoReducer: { ...videoState, seekedTime: 20, isSeeked: true } });
+    const state = mockStore({
+      videoReducer: { ...videoState, seekedTime: 20, isSeeked: true },
+      envReducer: envState,
+    });
     const { container } = render(
       <Provider store={state}>
         <Video />
@@ -88,7 +86,10 @@ describe('<Video /> ', () => {
   });
 
   test('should not get seekedTime from store if isSeeked false', () => {
-    const state = mockStore({ videoReducer: { ...videoState, seekedTime: 20, isSeeked: false } });
+    const state = mockStore({
+      videoReducer: { ...videoState, seekedTime: 20, isSeeked: false },
+      envReducer: envState,
+    });
     const { container } = render(
       <Provider store={state}>
         <Video />

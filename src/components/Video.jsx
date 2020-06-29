@@ -1,8 +1,9 @@
 import React, {
-  forwardRef, useRef, useState, memo, useEffect,
+  forwardRef, useRef, memo, useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+import useCombinedRefs from '@/utils/useCombinedRefs';
 
 import * as actions from '@/actions/videoActions';
 import '@/style/Video.scss';
@@ -10,8 +11,8 @@ import '@/style/Video.scss';
 const Video = memo(forwardRef(({
   startTime,
 }, ref) => {
-  const [muted, setMuted] = useState(true);
-  const videoRef = useRef(ref);
+  const videoRef = useRef();
+  const combinedRef = useCombinedRefs(videoRef, ref);
 
   const dispatch = useDispatch();
   const dispatchDuration = (e) => dispatch(actions.setDuration(e.target.duration));
@@ -29,21 +30,18 @@ const Video = memo(forwardRef(({
     dispatchCurrentTime(currentTime);
     falseIsSeeked();
   };
-  const setTime = (time) => { videoRef.current.currentTime = time; };
+  const setTime = (time) => { combinedRef.current.currentTime = time; };
   const setStartTime = () => setTime(startTime);
   const setSeekedTime = () => setTime(seekedTime);
-  const unMute = () => setMuted(false);
-  const togglePlay = () => (isPlayed ? videoRef.current.play() : videoRef.current.pause());
+  const togglePlay = () => (isPlayed ? combinedRef.current.play() : combinedRef.current.pause());
 
   useEffect(() => { togglePlay(); }, [isPlayed]);
   useEffect(() => { if (isSeeked) setSeekedTime(); }, [seekedTime, isSeeked]);
 
   return (
     <video
-      ref={videoRef}
+      ref={combinedRef}
       preload="auto"
-      muted={muted}
-      onLoadedData={unMute}
       onLoadedMetadata={setStartTime}
       onDurationChange={dispatchDuration}
       onTimeUpdate={handleTimeUpdate}

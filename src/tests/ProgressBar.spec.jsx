@@ -49,23 +49,19 @@ describe('<ProgressBar /> ', () => {
   });
 
   test('should dispatch time from coordinates if isDetecting', () => {
-    const state = mockStore({
-      videoReducer: { ...videoState, duration: 100 },
-    });
+    const state = mockStore({ videoReducer: { ...videoState, duration: 100 } });
     state.dispatch = jest.fn();
     const coordinates = { percent: { x: 20 } };
     render(
       <Provider store={state}>
-        <ProgressBar isDetecting coordinates={coordinates} />
+        <ProgressBar isDetecting={false} coordinates={coordinates} />
       </Provider>,
     );
     expect(state.dispatch).toHaveBeenCalledWith(setSeekedTime(20));
   });
 
   test('should dispatch isSeeked true if isDetecting is false', () => {
-    const state = mockStore({
-      videoReducer: { ...videoState, duration: 100 },
-    });
+    const state = mockStore({ videoReducer: { ...videoState, duration: 100 } });
     state.dispatch = jest.fn();
     const coordinates = { percent: { x: 20 } };
     render(
