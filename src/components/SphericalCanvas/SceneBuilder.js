@@ -23,6 +23,7 @@ class SceneBuilder {
     const far = 1000;
 
     this.camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, near, far);
+    this.camera.rotation.order = 'YXZ';
   }
 
   createRenderer() {

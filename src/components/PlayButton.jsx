@@ -9,7 +9,7 @@ import '@/style/PlayButton.scss';
 const PlayButton = memo(() => {
   const [classValue, setClassValue] = useState('play_button');
 
-  const isPlayed = useSelector((state) => state.videoReducer.isPlayed);
+  const { isPlayed } = useSelector(({ videoReducer }) => videoReducer);
 
   const dispatch = useDispatch();
   const dispatchPlayed = () => dispatch(switchIsPlayed());

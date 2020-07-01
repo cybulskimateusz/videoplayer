@@ -13,17 +13,14 @@ const Video = memo(forwardRef(({
 }, ref) => {
   const videoRef = useRef();
   const combinedRef = useCombinedRefs(videoRef, ref);
+  const { src } = useSelector(({ envReducer }) => envReducer);
+  const { isPlayed, seekedTime, isSeeked } = useSelector(({ videoReducer }) => videoReducer);
 
   const dispatch = useDispatch();
   const dispatchDuration = (e) => dispatch(actions.setDuration(e.target.duration));
   const dispatchCurrentTime = (time) => dispatch(actions.setCurrentTime(time));
   const falseIsPlayed = () => dispatch(actions.setIsPlayed(false));
   const falseIsSeeked = () => dispatch(actions.setIsSeeked(false));
-
-  const src = useSelector(({ envReducer }) => envReducer.src);
-  const isPlayed = useSelector(({ videoReducer }) => videoReducer.isPlayed);
-  const seekedTime = useSelector(({ videoReducer }) => videoReducer.seekedTime);
-  const isSeeked = useSelector(({ videoReducer }) => videoReducer.isSeeked);
 
   const handleTimeUpdate = (e) => {
     const { currentTime } = e.target;

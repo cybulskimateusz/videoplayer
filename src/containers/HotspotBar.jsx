@@ -5,8 +5,8 @@ import Hotspot from '@/components/Hotspot';
 import '@/style/HotspotBar.scss';
 
 const HotspotBar = memo(() => {
-  const hotspots = useSelector(({ envReducer }) => envReducer.hotspots);
-  const duration = useSelector(({ videoReducer }) => videoReducer.duration);
+  const { hotspots } = useSelector(({ envReducer }) => envReducer);
+  const { duration } = useSelector(({ videoReducer }) => videoReducer);
 
   return (
     <div className="hotspot_bar">

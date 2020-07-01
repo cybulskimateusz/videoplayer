@@ -11,8 +11,7 @@ import '@/style/ProgressBar.scss';
 
 const ProgressBar = memo(({ coordinates, isDetecting }) => {
   const [progress, setProgress] = useState(0);
-  const duration = useSelector(({ videoReducer }) => videoReducer.duration);
-  const currentTime = useSelector(({ videoReducer }) => videoReducer.currentTime);
+  const { currentTime, duration } = useSelector(({ videoReducer }) => videoReducer);
 
   const dispatch = useDispatch();
 

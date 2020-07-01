@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import {
   Route, useLocation, Switch,
 } from 'react-router-dom';
-import uuid from 'react-uuid';
+
 import _ from 'lodash';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { useSelector } from 'react-redux';
@@ -27,12 +27,12 @@ const withRoutedTime = (Component) => forwardRef((__props, ref) => {
         key={location.key}
       >
         <Switch location={location}>
-          <Route exact path="/">
+          <Route exact path="/" key={location.key}>
             <Component ref={ref} />
           </Route>
           { reducedHotspots && reducedHotspots.map(
             ({ time, title }) => (
-              <Route path={`/${title}-${time}`} key={`${uuid()}-${location.key}`}>
+              <Route exact path={`/${title}-${time}`} key={location.key}>
                 <Component startTime={time} ref={ref} />
               </Route>
             ),

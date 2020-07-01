@@ -16,7 +16,11 @@ const App = ({ hotspots, video, spherical }) => {
   const sphericalData = { ...sphericalState, spherical };
   const store = createStore(
     combineReducers({ videoReducer, envReducer, sphericalReducer }),
-    { videoReducer: { ...videoState }, envReducer: environment, sphericalReducer: sphericalData },
+    {
+      videoReducer: { ...videoState },
+      envReducer: environment,
+      sphericalReducer: sphericalData,
+    },
     composeWithDevTools(),
   );
   return (

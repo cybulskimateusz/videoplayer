@@ -6,14 +6,14 @@ import withAnimatedRouting from '@/utils/withAnimatedRouting';
 import Video from '@/components/Video';
 import ControlBar from '@/containers/ControlBar';
 
-import SphericalCanvas from '@/components/SphericalCanvas/SphericalCanvas';
+import SphericalCanvas from '@/components/SphericalCanvas';
 import '@/style/VideoPlayer.scss';
 
 const RoutedVideo = withAnimatedRouting(Video);
 
 const VideoPlayer = () => {
   const videoRef = useRef();
-  const spherical = useSelector(({ sphericalReducer }) => sphericalReducer.spherical);
+  const { spherical } = useSelector(({ sphericalReducer }) => sphericalReducer);
   const [classValue, setClassValue] = useState('video_player');
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const VideoPlayer = () => {
   return (
     <div className={classValue}>
       <RoutedVideo ref={videoRef} />
-      <SphericalCanvas ref={videoRef} />
+      { spherical && <SphericalCanvas ref={videoRef} /> }
       <div className="control_bar__outer">
         <ControlBar />
       </div>
