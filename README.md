@@ -23,3 +23,13 @@ ReactDOM.render(
   document.querySelector('#root'),
 );
 ```
+
+### Commands:
+* npm start - webpack-dev-server
+* npm build - build dist
+* npm run test - testing with jest
+* npm run test:watch - test with watching
+* npm run lint - check eslint
+* npm run lint:fix - fix eslint
+* npm run stylelint - check stylesheets formatting
+* npm run stylelint:fix - fix stylesheets formatting
