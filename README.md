@@ -1,7 +1,7 @@
 # React Videoplayer
 ## with THREE.JS 360°
 
-![example](https://i.imgur.com/onBg3Xc.gifv)
+![image](https://i.imgflip.com/4720ra.gif)
 
 ### Functions:
 
