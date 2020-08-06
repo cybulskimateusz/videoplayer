@@ -3,14 +3,14 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from '@/actions/sphericalActions';
-import { rangedValue } from '@/utils/Calc';
+import { clamp } from 'lodash';
 import '@/style/DirectionController.scss';
 
 const DirectionController = ({ coordinates, isDetecting }) => {
   const [direction, setDirection] = useState({ x: 0, y: 0 });
   const dispatch = useDispatch();
 
-  const limitedCoordinate = (coordinate) => rangedValue((coordinate - 50), -50, 50);
+  const limitedCoordinate = (coordinate) => clamp((coordinate - 50), -50, 50);
   const setLimitedDirection = () => {
     const x = limitedCoordinate(coordinates.percent.x);
     const y = limitedCoordinate(coordinates.percent.y);

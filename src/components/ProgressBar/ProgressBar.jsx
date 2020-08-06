@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
 
 import { setSeekedTime, setIsSeeked } from '@/actions/videoActions';
 import * as Calc from '@/utils/Calc';
@@ -17,7 +18,7 @@ const ProgressBar = memo(({ coordinates, isDetecting }) => {
 
   const seekedProgress = () => {
     const { x } = coordinates.percent;
-    return Calc.rangedValue(x, 0, 100);
+    return _.clamp(x, 0, 100)
   };
   const setSeekedProgress = () => {
     setProgress(seekedProgress());

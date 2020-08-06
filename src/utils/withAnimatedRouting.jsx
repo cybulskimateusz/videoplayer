@@ -32,7 +32,7 @@ const withRoutedTime = (Component) => forwardRef((__props, ref) => {
           </Route>
           { reducedHotspots && reducedHotspots.map(
             ({ time, title }) => (
-              <Route exact path={`/${title}-${time}`} key={location.key}>
+              <Route exact path={`/${title}-${time}`} key={time}>
                 <Component startTime={time} ref={ref} />
               </Route>
             ),
