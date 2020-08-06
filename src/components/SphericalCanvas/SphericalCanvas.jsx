@@ -3,6 +3,7 @@ import React, {
   forwardRef, useRef, useEffect, memo, useState,
 } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 
 import SceneBuilder from './SceneBuilder';
 import SphericalVideoMesh from './SphericalVideoMesh';
@@ -11,11 +12,13 @@ import '@/style/SphericalCanvas.scss';
 const scene = new SceneBuilder(0, 0);
 
 const SphericalCanvas = memo(forwardRef((__props, ref) => {
+  const location = useLocation();
   const canvasRef = useRef();
   const animationRef = useRef();
   const moveCameraRef = useRef();
   const [vertical, setVertical] = useState(null);
   const [horizontal, setHorizontal] = useState(null);
+  const [isReady, setIsReady] = useState(false);
   const {
     top, right, down, left,
   } = useSelector(({ sphericalReducer }) => sphericalReducer);
@@ -61,6 +64,10 @@ const SphericalCanvas = memo(forwardRef((__props, ref) => {
     animate();
     resetCanvas(scene.renderer);
     return () => cancelAnimationFrame(animationRef.current);
+  }, [location, isReady]);
+
+  useEffect(() => {
+    if (ref.current) setIsReady(true);
   }, [ref.current]);
 
   useEffect(() => {
